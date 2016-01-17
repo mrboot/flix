@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'movies/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -57,5 +56,6 @@ Rails.application.routes.draw do
   #   end
 
   get 'movies' => 'movies#index'
+  get 'movies/:id' => 'movies#show'
 
 end

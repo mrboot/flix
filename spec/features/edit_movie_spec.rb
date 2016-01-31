@@ -14,14 +14,15 @@ describe "when editing a movie" do
     expect(find_field('Title').value).to eq(@movie.title)
   end
 
-  xit 'should update the database with the edited value' do
+  it 'should update the database with the edited value' do
     visit edit_movie_url(@movie)
 
     fill_in('Description', :with => 'Really Long Text...')
 
     click_button('Update Movie')
 
-    expect(@movie.description).to eq('Really Long Text...')
+    expect(current_path).to eq(movie_path(@movie))
+    expect(page).to have_text('Really Long Text...')
   end
 
 end

@@ -5,33 +5,10 @@
     <title>Edit Movie</title>
   </head>
   <body>
-    <%= form_for @movie do |f| %>
+    <%= render 'form' %>
     <p>
-      <%= f.label :title %><br/>
-      <%= f.text_field :title %>
+    <%= link_to 'Back', @movie %>
     </p>
-    <p>
-      <%= f.label :description %><br/>
-      <%= f.text_area :description %>
-    </p>
-    <p>
-      <%= f.label :rating %><br/>
-      <%= f.text_field :rating %>
-    </p>
-    <p>
-      <%= f.label :released_on %><br/>
-      <%= f.date_select :released_on, order: [:day, :month, :year] %>
-    </p>
-    <p>
-      <%= f.label :total_gross %><br/>
-      <%= f.number_field :total_gross %>
-    </p>
-    <p>
-      <%= f.submit %><br/>
-    </p>
-    <% end %>
-    <p>
-      <%= link_to 'Back', @movie %>
-    </p>
+    <%= render 'footer' %>
   </body>
 </html>

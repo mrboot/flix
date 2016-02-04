@@ -15,7 +15,7 @@ describe "Viewing the list of movies" do
                           rating: "PG-13",
                           total_gross: 403706375.00,
                           description: "Peter Parker gets bitten by a genetically modified spider",
-                          released_on: "2002-05-03"))
+                          released_on: "2010-05-03"))
   end
 
   it 'should list the movies & their details' do
@@ -30,6 +30,15 @@ describe "Viewing the list of movies" do
     expect(page).to have_text('May 2nd, 2008')
     expect(page).to have_text('£318,412,101.00')
     expect(page).to have_text(@movie1.description[1..10])
+  end
+
+  it "does not show a movie that hasn't yet been released" do
+    movie = Movie.create(movie_attributes(title: "Guardians of the Galaxy II",
+                                          released_on: 1.month.from_now))
+
+    visit movies_path
+
+    expect(page).not_to have_text(movie.title)
   end
 
 end

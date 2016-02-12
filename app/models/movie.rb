@@ -1,11 +1,11 @@
 class Movie < ActiveRecord::Base
 
   def flop?
-    released? && total_gross < 20_000_000
+    released? && total_gross.to_i < 20_000_000
   end
 
   def released?
-    released_on <= Time.zone.now
+    released_on.blank? ? false : released_on <= Time.zone.now
   end
 
   def self.released

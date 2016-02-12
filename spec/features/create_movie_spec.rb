@@ -11,16 +11,24 @@ describe "when creating a movie" do
     expect(find_field('Description').value).to be_blank
     expect(find_field('Rating').value).to be_blank
     expect(find_field('Total gross').value).to be_blank
+    expect(find_field('Image file name').value).to be_blank
+    expect(find_field('Director').value).to be_blank
+    expect(find_field('Cast').value).to be_blank
+    expect(find_field('Duration').value).to be_blank
   end
 
   it 'should create a new record in the database' do
     visit new_movie_path
 
     fill_in('Title', :with => 'Star Wars: The Force Awakens')
-    fill_in "Description", with: "Star Wars lives again with the next nstallment in the franchise"
-    fill_in "Rating", with: "PG-13"
+    fill_in "Description", with: "Star Wars lives again with the next installment in the franchise"
+    fill_in "Rating", with: "12a"
     fill_in "Total gross", with: "75000000"
     select (Time.now.year - 1).to_s, :from => "movie_released_on_1i"
+    fill_in "Cast", with: "The award-winning cast"
+    fill_in "Director", with: "The ever-creative director"
+    fill_in "Duration", with: "123 min"
+    fill_in "Image file name", with: "movie.png"
 
     click_button('Create Movie')
 

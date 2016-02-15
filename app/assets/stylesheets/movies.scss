@@ -4,6 +4,7 @@
 // th, td {
 //   border: thin solid green;
 // }
+@import "colours";
 
 th {
   text-align: right;
@@ -15,4 +16,12 @@ h1 {
 
 h2 {
   color: blue;
+}
+
+article.movie {
+  img {
+    float: left;
+    margin: 0 15px;
+    border: 3px solid $secondary-color;
+    }
 }

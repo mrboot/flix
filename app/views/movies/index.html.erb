@@ -8,7 +8,7 @@
     <h1><%= pluralize(@movies.size, 'Movie') %></h1>
 
     <% @movies.each do |movie| %>
-      <article>
+      <article class="movie">
         <header>
           <h2><%= link_to(movie.title, movie) %></h2>
           <%= image_for(movie) %>

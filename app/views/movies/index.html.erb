@@ -1,44 +1,32 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Movies!</title>
-  </head>
-  <body>
-    <h1><%= pluralize(@movies.size, 'Movie') %></h1>
-
-    <% @movies.each do |movie| %>
+<ul id="movies">
+  <% @movies.each do |movie| %>
+    <li>
       <article class="movie">
         <header>
-          <h2><%= link_to(movie.title, movie) %></h2>
           <%= image_for(movie) %>
-          <h4><%= movie.cast %></h4>
+          <h2><%= link_to movie.title, movie %> (<%= movie.released_on.year %>)</h2>
+          <h3><%= movie.cast %></h3>
         </header>
         <p>
-          <%= truncate(movie.description, length: 40, separator:' ') %>
+          <%= truncate(movie.description, length: 150, separator: ' ') %>
         </p>
         <table>
           <tr>
-            <th>Released:</th>
-            <!-- <td><%= time_ago_in_words(movie.released_on) %> ago</td> -->
-            <!-- <td><%= movie.released_on.to_s(:long_ordinal) %></td> -->
-            <td><%= movie.released_on.to_s(:short_ordinal) %></td>
-          </tr>
-          <tr>
-          <th>Duration:</th>
-            <td><%= movie.duration %></td>
-          </tr>
-          <tr>
-            <th>Rating:</th>
+            <th>Rating</th>
             <td><%= movie.rating %></td>
           </tr>
           <tr>
-            <th>Total Gross:</th>
+            <th>Duration</th>
+            <td><%= movie.duration %></td>
+          </tr>
+          <tr>
+            <th>Total Gross</th>
             <td><%= format_total_gross(movie) %></td>
-            <!-- <td><%= number_to_currency(movie.total_gross, unit:"£") %></td> -->
           </tr>
         </table>
+        <footer>
+        </footer>
       </article>
-    <% end %>
-  </body>
-</html>
+    </li>
+  <% end %>
+</ul>

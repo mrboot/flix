@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Edit Movie</title>
-  </head>
-  <body>
-    <%= render 'form' %>
-    <p>
-    <%= link_to 'Back', @movie %>
-    </p>
-  </body>
-</html>
+<header id="content-header">
+  <h1>Editing <%= @movie.title %></h1>
+</header>
+
+<%= render 'form' %>

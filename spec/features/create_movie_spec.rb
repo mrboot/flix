@@ -22,7 +22,7 @@ describe "when creating a movie" do
 
     fill_in('Title', :with => 'Star Wars: The Force Awakens')
     fill_in "Description", with: "Star Wars lives again with the next installment in the franchise"
-    fill_in "Rating", with: "12a"
+    select "12A", :from => "Rating"
     fill_in "Total gross", with: "75000000"
     select (Time.now.year - 1).to_s, :from => "movie_released_on_1i"
     fill_in "Cast", with: "The award-winning cast"

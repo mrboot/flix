@@ -1,5 +1,17 @@
 class Movie < ActiveRecord::Base
 
+  RATINGS = %w(U G PG 12 12A PG-13 15 R NC-17 18)
+
+  validates :title, :released_on, :duration, presence: true
+  validates :description, length: { minimum: 25 }
+  validates :total_gross, numericality: { greater_than_or_equal_to: 0.00 }
+  validates :image_file_name, allow_blank: true, format: {
+            with: /\w+\.(png|jpg|gif)\z/i,
+            message: "Image must be one of PNG, JPG or GIF" }
+  validates :rating, inclusion: {
+            in: RATINGS,
+            mesage: "Must be a valid rating" }
+
   def flop?
     released? && total_gross.to_i < 20_000_000
   end

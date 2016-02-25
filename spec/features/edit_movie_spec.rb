@@ -17,12 +17,12 @@ describe "when editing a movie" do
   it 'should update the database with the edited value' do
     visit edit_movie_url(@movie)
 
-    fill_in('Description', :with => 'Really Long Text...')
+    fill_in('Description', :with => 'Movie description that has Really Long Text...')
 
     click_button('Update Movie')
 
     expect(current_path).to eq(movie_path(@movie))
-    expect(page).to have_text('Really Long Text...')
+    expect(page).to have_text('Movie description that has Really Long Text...')
   end
 
 end

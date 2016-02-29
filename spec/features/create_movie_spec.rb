@@ -17,7 +17,7 @@ describe "when creating a movie" do
     expect(find_field('Duration').value).to be_blank
   end
 
-  it 'should create a new record in the database' do
+  it 'should create a new record in the database if the data is valid' do
     visit new_movie_path
 
     fill_in('Title', :with => 'Star Wars: The Force Awakens')
@@ -34,6 +34,17 @@ describe "when creating a movie" do
 
     expect(current_path).to eq(movie_path(Movie.last))
     expect(page).to have_text('Star Wars: The Force Awakens')
+  end
+
+  it "should not save the movie if it's invalid" do
+    visit new_movie_url
+
+    expect {
+      click_button 'Create Movie' 
+    }.not_to change(Movie, :count)
+
+    expect(current_path).to eq(movies_path)
+    expect(page).to have_text('error')
   end
 
 end

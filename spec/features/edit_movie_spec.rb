@@ -25,4 +25,16 @@ describe "when editing a movie" do
     expect(page).to have_text('Movie description that has Really Long Text...')
   end
 
+  it "should not update the movie if it's invalid" do
+    movie = Movie.create(movie_attributes)
+
+    visit edit_movie_url(movie)
+
+    fill_in 'Title', with: " "
+
+    click_button 'Update Movie'
+
+    expect(page).to have_text('error')
+  end
+
 end

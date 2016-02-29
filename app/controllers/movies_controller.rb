@@ -14,9 +14,12 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(secure_params)
 
-    @movie.save
+    if @movie.save
+      redirect_to @movie
+    else
+      render :new
+    end
 
-    redirect_to @movie
   end
 
   def edit
@@ -26,9 +29,12 @@ class MoviesController < ApplicationController
   def update
     @movie = Movie.find(params[:id])
 
-    @movie.update(secure_params)
-
-    redirect_to @movie
+    if @movie.update(secure_params)
+      redirect_to @movie
+    else
+      render :edit
+    end
+    
   end
 
   def destroy

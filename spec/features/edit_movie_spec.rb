@@ -37,4 +37,15 @@ describe "when editing a movie" do
     expect(page).to have_text('error')
   end
 
+  it 'should diaplay a flash message on success' do
+    visit edit_movie_url(@movie)
+
+    fill_in 'Title', with: "Back to the future"
+
+    click_button 'Update Movie'
+
+    expect(current_path).to eq(movie_path(@movie))
+    expect(page).to have_text('Movie successfully updated!')
+  end
+
 end

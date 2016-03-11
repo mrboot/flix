@@ -34,6 +34,7 @@
       <%= link_to 'Delete', @movie,
                   class: 'button',
                   method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to pluralize(@movie.reviews.size, 'Review'), movie_reviews_path(@movie), class: 'button' %>
     </nav>
   </footer>
 </article>

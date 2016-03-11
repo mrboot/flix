@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :reviews
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -61,5 +60,7 @@ Rails.application.routes.draw do
   # get 'movies/:id' => 'movies#show', as: 'movie'
   # get 'movies/:id/edit' => 'movies#edit', as: 'edit_movie'
   # patch 'movies/:id' => 'movies#update'
-  resources :movies
+  resources :movies do
+    resources :reviews
+  end
 end

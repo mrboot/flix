@@ -9,4 +9,8 @@ class Review < ActiveRecord::Base
   }
 
   belongs_to :movie
+
+  def star_values
+    STARS
+  end
 end

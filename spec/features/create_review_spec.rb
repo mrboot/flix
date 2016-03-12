@@ -5,7 +5,7 @@ describe "when creating a review" do
   end
 
   it 'should render a blank form' do
-    visit movie_path @movie
+    visit movie_reviews_path @movie
     click_link 'Add Review'
 
     expect(current_path).to eq(new_movie_review_path(@movie))

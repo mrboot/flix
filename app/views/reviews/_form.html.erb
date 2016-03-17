@@ -13,16 +13,15 @@
         <%= f.label :comment %>
         <%= f.text_area :comment, cols: 40, rows: 7, placeholder: "What did you think?" %>
       </li>
-      <li class="required stars">
-        <%= f.label :stars %>
-        <% Review::STARS.each do |star| %>
-          <span class="star">
-            <%= star %> <%= f.radio_button :stars, star %>
-          </span>
-        <% end %>
-      </li>
     </ol>
-    <p>
+    <p id="review-stars">Rating:</p>
+    <div class="rating">
+      <% Review::STARS.each do |star| %>
+          <%= f.radio_button :stars, star, :checked => (star == 1) %>
+          <%= f.label :stars, content_tag(:i, "", class: "fa fa-star"), :value => star %>
+      <% end %>
+    </div>
+    <p id="review-submit">
       <%= f.submit %>
       <% if local_assigns[:full] %>
         <%= link_to "Cancel", movie_reviews_path(@movie), class: 'button' %>

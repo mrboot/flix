@@ -5,6 +5,10 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
+    # need to have an @review vairable to show the review form partial
+    # but if use the standard @review = @movie.reviews.new the instantiated
+    # review will be counted so when we check the size of the review array to
+    # display on the button, it would always be +1 the actual value.
     @review = Review.new
     @review.movie = @movie
   end

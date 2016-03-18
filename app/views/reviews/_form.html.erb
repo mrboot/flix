@@ -14,12 +14,14 @@
         <%= f.text_area :comment, cols: 40, rows: 7, placeholder: "What did you think?" %>
       </li>
     </ol>
-    <p id="review-stars">Rating:</p>
-    <div class="rating">
-      <% Review::STARS.each do |star| %>
-          <%= f.radio_button :stars, star, :checked => (star == 1) %>
-          <%= f.label :stars, content_tag(:i, "", class: "fa fa-star"), :value => star %>
-      <% end %>
+    <div class="star-container">
+      <p id="review-rating">Rating:</p>
+      <div class="rating">
+        <% Review::STARS.each do |star| %>
+            <%= f.radio_button :stars, star %>
+            <%= f.label :stars, content_tag(:i, ""), :value => star %>
+        <% end %>
+      </div>
     </div>
     <p id="review-submit">
       <%= f.submit %>

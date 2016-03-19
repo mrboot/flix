@@ -13,6 +13,11 @@
         &quot;<%= review.comment %>&quot;
       </p>
     </li>
+    <!-- because this is a nested resource we need to pass both the movie and the review -->
+    <%= link_to 'Edit', edit_movie_review_path(@movie, review) %>
+    <%= link_to 'Delete', [@movie, review],
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %>
   <% end %>
 </ol>
 

@@ -1,0 +1,7 @@
+<header id="content-header">
+  <h1>Edit Review for <%= link_to(@movie.title, @movie) %></h1>
+</header>
+<!-- Becasue multiple views are using the same shared errors form, pass 'object' -->
+<!-- and set it to the @review object -->
+<%= render 'shared/errors', object: @review %>
+<%= render 'form', full: true %>

@@ -26,6 +26,10 @@
     <p id="review-submit">
       <%= f.submit %>
       <% if local_assigns[:full] %>
+      <%= link_to 'Delete', [@movie, @review],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    class: 'button'  %>
         <%= link_to "Cancel", movie_reviews_path(@movie), class: 'button' %>
       <% end %>
     </p>

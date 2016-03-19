@@ -24,6 +24,15 @@ describe "A movie" do
     expect(movie.flop?).to be_falsey
   end
 
+  it "should not be a flop if average rating is more than 4 stars over 50+ reviews" do
+    movie = Movie.create(movie_attributes(total_gross: 18_000_000, released_on: 3.months.ago))
+    50.times do
+      movie.reviews.create(review_attributes(stars:4))
+    end
+
+    expect(movie.flop?).to be_falsey
+  end
+
   it "is released when the released on date is in the past" do
     movie = Movie.create(movie_attributes(released_on: 3.months.ago))
 
@@ -174,6 +183,16 @@ describe "A movie" do
     expect {
       movie.destroy
     }.to change(Review, :count).by(-1)
+  end
+
+  it 'calculates the average number of stars' do
+    movie = Movie.create(movie_attributes)
+
+    movie.reviews.create(review_attributes(stars: 3))
+    movie.reviews.create(review_attributes(stars: 5))
+    movie.reviews.create(review_attributes(stars: 1))
+
+    expect(movie.average_stars).to eq(3)
   end
 
 end

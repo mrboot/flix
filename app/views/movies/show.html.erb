@@ -28,6 +28,13 @@
     <%= format_total_gross(@movie) %>
   </p>
 
+  <h3>Average Rating</h3>
+  <p>
+    <%= format_average_stars(@movie) %>
+  </p>
+
+  <%= render 'reviews/recent_reviews' %>
+
   <h3>Seen the film? Add a review!</h3>
   <%= render 'reviews/form' %>
 

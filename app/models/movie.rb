@@ -15,7 +15,12 @@ class Movie < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
 
   def flop?
-    released? && total_gross.to_i < 20_000_000
+    # released? && total_gross.to_i < 20_000_000
+    cult_film? ? false : released? && total_gross.to_i < 20_000_000
+  end
+
+  def cult_film?
+    reviews.size >= 50 && average_stars >= 4
   end
 
   def released?
@@ -36,6 +41,14 @@ class Movie < ActiveRecord::Base
 
   def self.recently_added
     order(created_at: :desc).limit(3)
+  end
+
+  def average_stars
+    reviews.average(:stars)
+  end
+
+  def recent_reviews
+    reviews.order('created_at desc').limit(2)
   end
 
 end

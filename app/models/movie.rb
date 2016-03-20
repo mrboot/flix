@@ -3,7 +3,10 @@ class Movie < ActiveRecord::Base
   RATINGS = %w(U G PG 12 12A PG-13 15 R NC-17 18)
 
   # has_attached_file is a paperclip method.
-  has_attached_file :image
+  has_attached_file :image, styles: {
+    small: "90x133>",
+    thumb: "50x50>"
+  }
 
   validates :title, :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }

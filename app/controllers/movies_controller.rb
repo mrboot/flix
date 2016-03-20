@@ -64,7 +64,10 @@ class MoviesController < ApplicationController
                                   :cast,
                                   :director,
                                   :duration,
-                                  :image_file_name)
+                                  # :image_file_name
+                                  # replace above file field with the below paperclip
+                                  # pseudo field
+                                  :image)
   end
 
 end

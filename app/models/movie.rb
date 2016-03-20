@@ -2,12 +2,19 @@ class Movie < ActiveRecord::Base
 
   RATINGS = %w(U G PG 12 12A PG-13 15 R NC-17 18)
 
+  # has_attached_file is a paperclip method.
+  has_attached_file :image
+
   validates :title, :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0.00 }
-  validates :image_file_name, allow_blank: true, format: {
-            with: /\w+\.(png|jpg|gif)\z/i,
-            message: "Image must be one of PNG, JPG or GIF" }
+  # validates :image_file_name, allow_blank: true, format: {
+  #           with: /\w+\.(png|jpg|gif)\z/i,
+  #           message: "Image must be one of PNG, JPG or GIF" }
+  # change the above validation for 'static' images to the below for uploaded paperclip images
+  validates_attachment :image,
+                       :content_type => { :content_type => ['image/jpeg', 'image/png'] },
+                       :size => { :less_than => 1.megabyte }
   validates :rating, inclusion: {
             in: RATINGS,
             mesage: "Must be a valid rating" }

@@ -11,11 +11,20 @@ module MoviesHelper
     end
   end
 
+  # def image_for(movie)
+  #   if movie.image_file_name.blank?
+  #     image_tag 'placeholder.png'
+  #   else
+  #     image_tag movie.image_file_name
+  #   end
+  # end
+  # replaced above helper which looked for image file names with the below
+  # which checks if an image exists at the URL
   def image_for(movie)
-    if movie.image_file_name.blank?
-      image_tag 'placeholder.png'
+    if movie.image.exists?
+      image_tag(movie.image.url)
     else
-      image_tag movie.image_file_name
+      image_tag('placeholder.png')
     end
   end
 

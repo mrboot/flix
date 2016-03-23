@@ -11,7 +11,7 @@ describe "when creating a movie" do
     expect(find_field('Description').value).to be_blank
     expect(find_field('Rating').value).to be_blank
     expect(find_field('Total gross').value).to be_blank
-    expect(find_field('Image file name').value).to be_blank
+    expect(find_field('Image').value).to be_blank
     expect(find_field('Director').value).to be_blank
     expect(find_field('Cast').value).to be_blank
     expect(find_field('Duration').value).to be_blank
@@ -59,7 +59,7 @@ describe "when creating a movie" do
     fill_in "Cast", with: "The award-winning cast"
     fill_in "Director", with: "The ever-creative director"
     fill_in "Duration", with: "123 min"
-    fill_in "Image file name", with: "movie.png"
+    attach_file "Image", "#{Rails.root}/app/assets/images/ironman.jpg"
 
     click_button('Create Movie')
 

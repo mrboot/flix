@@ -123,23 +123,37 @@ describe "A movie" do
     expect(movie.errors[:total_gross].any?).to eq(true)
   end
 
-  it "accepts properly formatted image file names" do
-    file_names = %w[e.png movie.png movie.jpg movie.gif MOVIE.GIF]
-    file_names.each do |file_name|
-      movie = Movie.new(image_file_name: file_name)
-      movie.valid?
-      expect(movie.errors[:image_file_name].any?).to eq(false)
-    end
+  # new test using Paperclip matchers.
+  # Should really split into separate tests.
+  it 'validates an uploaded image' do
+    movie = Movie.new(movie_attributes)
+
+    expect(movie).to have_attached_file(:image)
+    expect(movie).to validate_attachment_content_type(:image).
+                allowing('image/png', 'image/jpeg').
+                rejecting('text/plain', 'text/xml')
+    expect(movie).to validate_attachment_size(:image).
+                less_than(1.megabytes)
   end
 
-  it "rejects improperly formatted image file names" do
-    file_names = %w[movie .jpg .png .gif movie.pdf movie.doc]
-    file_names.each do |file_name|
-      movie = Movie.new(image_file_name: file_name)
-      movie.valid?
-      expect(movie.errors[:image_file_name].any?).to eq(true)
-    end
-  end
+  # No longer setting an image file name - this is done via Paperclip and upload.
+  # it "accepts properly formatted image file names" do
+  #   file_names = %w[e.png movie.png movie.jpg movie.gif MOVIE.GIF]
+  #   file_names.each do |file_name|
+  #     movie = Movie.new(image_file_name: file_name)
+  #     movie.valid?
+  #     expect(movie.errors[:image_file_name].any?).to eq(false)
+  #   end
+  # end
+  #
+  # it "rejects improperly formatted image file names" do
+  #   file_names = %w[movie .jpg .png .gif movie.pdf movie.doc]
+  #   file_names.each do |file_name|
+  #     movie = Movie.new(image_file_name: file_name)
+  #     movie.valid?
+  #     expect(movie.errors[:image_file_name].any?).to eq(true)
+  #   end
+  # end
 
   it "accepts any rating that is in an approved list" do
     ratings = %w[U G PG 12 12A PG-13 15 R NC-17 18]

@@ -3,6 +3,8 @@ class Movie < ActiveRecord::Base
   RATINGS = %w(U G PG 12 12A PG-13 15 R NC-17 18)
 
   # has_attached_file is a paperclip method.
+  # The styles bit tells it to use Imagemagick to upload both a small and thumnail
+  # size image.  Can then sepcify on display which size to use.
   has_attached_file :image, styles: {
     small: "90x133>",
     thumb: "50x50>"

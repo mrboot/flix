@@ -22,7 +22,7 @@ module MoviesHelper
   # which checks if an image exists at the URL
   def image_for(movie)
     if movie.image.exists?
-      image_tag(movie.image.url(:small))
+      image_tag(movie.image.url(:small))  # Specify to use the small image.
     else
       image_tag('placeholder.png')
     end

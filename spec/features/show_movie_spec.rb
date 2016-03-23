@@ -12,14 +12,15 @@ describe "When showing an individual movie" do
     expect(page).to have_text(@movie.description)
     expect(page).to have_text(@movie.released_on.to_s(:short_ordinal))
     # expect(page).to have_selector(("img[src^='/assets/#{@movie.image_file_name.split('.')[0]}']"))
-    expect(page).to have_selector("img[src$='#{movie.image.url}']")
+    expect(page).to have_selector("img[src$='#{@movie.image.url(:small)}']")
     expect(page).to have_text(@movie.cast)
     expect(page).to have_text(@movie.director)
     expect(page).to have_text(@movie.duration)
   end
 
   it 'should display a placeholder image if no poster image specified' do
-    @movie = Movie.create(movie_attributes(image_file_name: nil))
+    # @movie = Movie.create(movie_attributes(image_file_name: ''))
+    @movie = Movie.create(movie_no_image_attributes)
 
     visit movie_url(@movie)
 

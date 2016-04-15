@@ -1,0 +1,14 @@
+<header id="content-header">
+  <h1>There are <%= pluralize(@users.count, 'user') %> registered on the site</h1>
+</header>
+
+<ul id="users">
+  <% @users.each do |user| %>
+    <li>
+      <%= link_to user.name, user %>
+    </li>
+    <li>
+      <%= mail_to user.email, nil, id:"user-email" %>
+    </li>
+  <% end %>
+</ul>

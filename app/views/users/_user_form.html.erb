@@ -1,0 +1,38 @@
+<%= form_for @user do |f| %>
+  <%= render 'shared/errors', object: @user %>
+  <fieldset>
+    <ol>
+      <li class="required">
+        <%= f.label :name %>
+        <%= f.text_field :name, autofocus: true %>
+      </li>
+      <li class="required">
+        <%= f.label :username %>
+        <%= f.text_field :username , size: 40,
+                         placeholder: "Alphanumeric characters only!" %>
+      </li>
+      <li class="required">
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+      </li>
+      <li class="required">
+        <%= f.label :password %>
+        <%= f.password_field :password, length: 40, placeholder: "Min 10 characters" %>
+      </li>
+      <li class="required">
+        <%= f.label :password_confirmation, 'Confirm Password' %>
+        <%= f.password_field :password_confirmation, length: 40, placeholder: "Min 10 characters" %>
+      </li>
+    </ol>
+    <p id="user-submit">
+      <!-- Rails will name the button automatically as Create User and Update User -->
+      <!-- as the model is user.  If the label needs to change then use below -->
+      <% if @user.new_record? %>
+        <%= f.submit 'Create Account' %>
+      <% else %>
+        <%= f.submit 'Update Account' %>
+      <% end %>
+      <%= link_to "Cancel", @user, class: 'button' %>
+    </p>
+  </fieldset>
+<% end %>

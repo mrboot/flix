@@ -16,6 +16,40 @@ describe "A User" do
     expect(user.errors[:email].any?).to eq(true)
   end
 
+  it "requires a username" do
+    user = User.new(username: "")
+
+    user.valid?
+
+    expect(user.errors[:username].any?).to eq(true)
+  end
+
+  it 'accepts properly formatted usernames' do
+    usernames = %w[mark1 mbooth99 user99user]
+    usernames.each do |username|
+      user = User.new(username: username)
+      user.valid?
+      expect(user.errors[:username].any?).to eq(false)
+    end
+  end
+
+  it 'rejects improperly formatted usernames' do
+    usernames = %w[mark_1 m.booth user*user]
+    usernames.each do |username|
+      user = User.new(username: username)
+      user.valid?
+      expect(user.errors[:username].any?).to eq(true)
+    end
+  end
+
+  it "requires a unique, case insensitive username" do
+    user1 = User.create!(user_attributes)
+
+    user2 = User.new(username: user1.username.upcase)
+    user2.valid?
+    expect(user2.errors[:username].first).to eq("has already been taken")
+  end
+
   it "accepts properly formatted email addresses" do
     emails = %w[user@example.com first.last@example.com]
     emails.each do |email|
@@ -65,7 +99,7 @@ describe "A User" do
   end
 
   it "requires the password to match the password confirmation" do
-    user = User.new(password: "secret", password_confirmation: "nomatch")
+    user = User.new(password: "secret1234", password_confirmation: "nomatch")
 
     user.valid?
 
@@ -73,7 +107,7 @@ describe "A User" do
   end
 
   it "requires a password and matching password confirmation when creating" do
-    user = User.create!(user_attributes(password: "secret", password_confirmation: "secret"))
+    user = User.create!(user_attributes(password: "secret1234", password_confirmation: "secret1234"))
 
     expect(user.valid?).to eq(true)
   end

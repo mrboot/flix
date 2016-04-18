@@ -27,6 +27,8 @@ describe "when creating a user" do
     expect(current_path).to eq(user_path(User.last))
     expect(page).to have_text('Foobar Kadigan')
     expect(page).to have_text("Thanks for signing up!")
+    expect(page).not_to have_link('Sign In')
+    expect(page).not_to have_link('Sign Up')
   end
 
   it 'should not create a new record if the data is invalid' do

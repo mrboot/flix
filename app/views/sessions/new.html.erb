@@ -1,0 +1,24 @@
+<header>
+  <h1>Sign In</h1>
+</header>
+
+<%= form_tag session_path do %>
+  <fieldset>
+    <ol>
+      <li class="required">
+        <%= label_tag 'Username or email address' %>
+        <%= text_field_tag :email_or_username, nil, autofocus: true, size: 40, required: true %>
+      </li>
+      <li class="required">
+        <%= label_tag :password %>
+        <%= password_field_tag :password, nil, size: 40, required: true %>
+      </li>
+    </ol>
+    <p>
+      <%= submit_tag 'Sign In' %>
+    </p>
+    <p>
+      No account yet? <%= link_to 'Sign Up', new_user_path %>
+    </p>
+  </fieldset>
+<% end %>

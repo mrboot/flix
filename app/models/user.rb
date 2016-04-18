@@ -19,4 +19,9 @@ class User < ActiveRecord::Base
     Digest::MD5::hexdigest(email.downcase)
   end
 
+  def self.authenticate(email_or_username, password)
+    user = User.find_by_email(email_or_username) || User.find_by_username(email_or_username)
+    user && user.authenticate(password)
+  end
+
 end

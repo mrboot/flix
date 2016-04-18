@@ -8,11 +8,12 @@ describe "when viewing a list of users" do
                           password: "Password01",
                           password_confirmation: "Password01" )
     @user3 = User.create( name: "Jane Temp",
-                          username: "jtemp2", 
+                          username: "jtemp2",
                           email: "jane.temp@example.com",
                           password: "Password01",
                           password_confirmation: "Password01" )
 
+    sign_in(@user1)
   end
 
   it 'should list users and their details' do

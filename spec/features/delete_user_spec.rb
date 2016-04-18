@@ -2,6 +2,7 @@ describe "when deleting a user" do
 
   before(:each) do
     @user = User.create!(user_attributes)
+    sign_in(@user)
   end
 
   it 'should remove the account from the system & redirect to the user listing' do

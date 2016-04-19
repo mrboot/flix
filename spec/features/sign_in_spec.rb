@@ -43,6 +43,16 @@ describe "Signing in" do
       expect(page).to have_text('invalid username or password')
     end
 
+    it 'should redirect to the intended page' do
+      visit users_path
+
+      expect(current_path).to eq(signin_path)
+
+      sign_in(@user)
+
+      expect(current_path).to eq(users_path)
+    end
+
   end
 
   context "when signed in" do

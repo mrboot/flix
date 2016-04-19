@@ -2,6 +2,7 @@ describe "when editing a user" do
 
   before(:each) do
     @user = User.create!(user_attributes)
+    sign_in(@user)
   end
 
   it 'should display the fields to edit populated with data' do

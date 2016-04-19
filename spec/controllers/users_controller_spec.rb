@@ -44,4 +44,31 @@ RSpec.describe UsersController, type: :controller do
 
   end
 
+  context "when signed in" do
+
+    before do
+      @user2 = User.create!(user_attributes(email: "billy@example.com", username: "billybob1"))
+      session[:user_id] = @user.id
+    end
+
+    it 'cannot edit a different user' do
+      get :edit, id: @user2
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it 'cannot delete a different user' do
+      delete :destroy, id: @user2
+
+      expect(response).to redirect_to(root_path)
+    end
+
+    it 'cannot update a different user' do
+      patch :update, id: @user2
+
+      expect(response).to redirect_to(root_path)
+    end
+
+  end
+
 end

@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   # checks if the user is logged in and if not redirects to the login page.
   def require_signin
     unless current_user
+      # store the url used before hitting this method
+      session[:intended_url] = request.url
       redirect_to signin_url, alert: "Please sign in first!"
     end
   end
@@ -20,5 +22,11 @@ class ApplicationController < ActionController::Base
 
   # added to that it can still be used as a view helper method
   helper_method :current_user
+
+  def current_user?(user)
+    current_user == user
+  end
+
+  helper_method :current_user?
 
 end

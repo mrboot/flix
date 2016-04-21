@@ -2,6 +2,8 @@ describe "when deleting a movie" do
 
   before :each do
     @movie = Movie.create(movie_attributes(title: 'Rotten Movie'))
+    @admin = User.create!(admin_user_attributes)
+    sign_in(@admin)
   end
 
   it 'should remove the movie from the database and redirect to the index page' do

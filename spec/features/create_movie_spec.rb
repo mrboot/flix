@@ -1,5 +1,10 @@
 describe "when creating a movie" do
 
+  before(:each) do
+    @admin = User.create!(admin_user_attributes)
+    sign_in(@admin)
+  end
+
   it 'should render a blank form' do
     visit root_path
 

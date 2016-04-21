@@ -2,7 +2,8 @@ class UsersController < ApplicationController
 
   # require_signin is in ApplicationController
   before_action :require_signin, except: [:new, :create]
-  before_action :require_correct_user, only: [:edit, :update, :destroy]
+  before_action :require_correct_user, only: [:edit, :update]
+  before_action :require_admin, only: [:delete]
 
   def index
     @users = User.all
@@ -40,6 +41,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user = User.find(params[:id])
     if @user.destroy
       # make sure we sign out the user by setting session to nil at teh same time.
       session[:user_id] = nil
@@ -52,7 +54,7 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:name, :username, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :username, :email, :password, :password_confirmation, :admin)
   end
 
   def require_correct_user

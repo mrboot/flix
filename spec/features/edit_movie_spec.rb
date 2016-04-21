@@ -2,6 +2,8 @@ describe "when editing a movie" do
 
   before :each do
     @movie = Movie.create(movie_attributes)
+    @admin = User.create!(admin_user_attributes)
+    sign_in(@admin)
   end
 
   it 'should display all the fields' do

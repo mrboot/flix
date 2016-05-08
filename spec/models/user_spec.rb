@@ -126,6 +126,23 @@ describe "A User" do
     expect(user.password_digest.present?).to eq(true)
   end
 
+  it 'returns all the reviews for a user' do
+    user = User.create!(user_attributes)
+    movie1 = Movie.create!(movie_attributes)
+    movie2 = Movie.create!(movie_attributes(title: "BvS:DoJ"))
+
+    review1 = movie1.reviews.new(stars: 5, comment: "Two thumbs up!", user: user)
+    # review1.user = user
+    review1.save!
+
+    review2 = movie2.reviews.new(stars: 1, comment: "Rubbish", user: user)
+    # review2.user = user
+    review2.save!
+
+    expect(user.reviews).to include(review1)
+    expect(user.reviews).to include(review2)
+  end
+
 end
 
 describe "authenticate" do

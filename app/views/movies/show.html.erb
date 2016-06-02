@@ -35,8 +35,10 @@
 
   <%= render 'reviews/recent_reviews' %>
 
-  <h3>Seen the film? Add a review!</h3>
-  <%= render 'reviews/form' %>
+  <% if current_user %>
+    <h3>Seen the film? Add a review!</h3>
+    <%= render 'reviews/form' %>
+  <% end %>
 
   <footer>
     <nav>

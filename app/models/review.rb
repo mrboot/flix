@@ -3,7 +3,7 @@ class Review < ActiveRecord::Base
   belongs_to :movie
   belongs_to :user
 
-  # validates :name, :location, presence: true  <- no longer needed as we are linking to a logged in user
+  validates :location, presence: true
   validates :comment, length: { minimum: 4 }
 
   STARS = [5,4,3,2,1]

@@ -103,3 +103,29 @@ Movie.create!([
     total_gross: 387_623_910
   }
 ])
+
+User.create!([
+  {
+    name: "Joe Bloggs",
+    username: "jbloggs",
+    email: "jbloggs@example.com",
+    password: "Password01",
+    password_confirmation: "Password01"
+  },
+  {
+    name: "Joe Admin",
+    username: "jadmin",
+    email: "jadmins@example.com",
+    password: "Password01",
+    password_confirmation: "Password01",
+    admin: true
+  },
+  {
+    name: "Mark Booth",
+    username: "mrbooth",
+    email: "mrbooth@example.com",
+    password: "Password01",
+    password_confirmation: "Password01",
+    admin: true
+  }
+])

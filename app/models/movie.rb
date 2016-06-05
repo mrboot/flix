@@ -25,6 +25,9 @@ class Movie < ActiveRecord::Base
             mesage: "Must be a valid rating" }
 
   has_many :reviews, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :fans, through: :favorites, source: :user
+  has_many :critics, through: :reviews, source: :user
 
   def flop?
     # released? && total_gross.to_i < 20_000_000

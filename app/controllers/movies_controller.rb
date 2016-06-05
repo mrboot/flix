@@ -15,6 +15,7 @@ class MoviesController < ApplicationController
     # display on the button, it would always be +1 the actual value.
     @review = Review.new
     @review.movie = @movie
+    @fans = @movie.fans
   end
 
   def new

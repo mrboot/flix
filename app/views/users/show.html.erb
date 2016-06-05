@@ -22,6 +22,16 @@
         <% end %>
       </ol>
     <% end %>
+    <% if @favorites.any? %>
+      <h3>Favourite Movies</h3>
+      <ul>
+        <% @favorites.each do |movie| %>
+          <li>
+            <%= link_to movie.title, movie %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </header>
   <footer>
     <nav>

@@ -131,16 +131,29 @@ describe "A User" do
     movie1 = Movie.create!(movie_attributes)
     movie2 = Movie.create!(movie_attributes(title: "BvS:DoJ"))
 
-    review1 = movie1.reviews.new(stars: 5, comment: "Two thumbs up!", user: user)
+    review1 = movie1.reviews.new(stars: 5, comment: "Two thumbs up!", user: user, location: "Watchfield")
     # review1.user = user
     review1.save!
 
-    review2 = movie2.reviews.new(stars: 1, comment: "Rubbish", user: user)
+    review2 = movie2.reviews.new(stars: 1, comment: "Rubbish", user: user, location: "Watchfield")
     # review2.user = user
     review2.save!
 
     expect(user.reviews).to include(review1)
     expect(user.reviews).to include(review2)
+  end
+
+  it 'returns the movies favourited by the user' do
+    user = User.new(user_attributes)
+    movie1 = Movie.new(movie_attributes)
+    movie2 = Movie.new(movie_attributes(title: "BvS:DoJ"))
+
+    user.favorites.new(movie: movie1)
+    user.favorites.new(movie: movie2)
+
+    expect(user.favorite_movies).to include(movie1)
+    expect(user.favorite_movies).to include(movie2)
+
   end
 
 end

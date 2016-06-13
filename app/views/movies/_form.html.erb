@@ -40,6 +40,11 @@
         <%= f.text_field :director %>
       </li>
       <li>
+        <div class="checkboxes">
+          <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name %>
+        </div>
+      </li>
+      <li>
         <%= f.label :image %>
         <%= f.file_field :image %>
       </li>

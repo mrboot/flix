@@ -16,6 +16,7 @@ class MoviesController < ApplicationController
     @review = Review.new
     @review.movie = @movie
     @fans = @movie.fans
+    @genres = @movie.genres
 
     if current_user
       @current_favorite = current_user.favorites.find_by(movie_id: @movie.id)
@@ -76,7 +77,8 @@ class MoviesController < ApplicationController
                                   # :image_file_name
                                   # replace above file field with the below paperclip
                                   # pseudo field
-                                  :image)
+                                  :image,
+                                  genre_ids: [])
   end
 
 end

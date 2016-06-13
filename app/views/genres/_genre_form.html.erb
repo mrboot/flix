@@ -1,0 +1,9 @@
+<%= form_for(@genre) do |f| %>
+  <%= render 'shared/errors', object: @genre %>
+  <%= f.label :name %>
+  <%= f.text_field :name, autofocus: true %>
+  <p>
+    <%= f.submit %>
+    <%= link_to "Back", @genre, class: 'button' %>
+  </p>
+<% end %>

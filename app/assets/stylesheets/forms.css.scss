@@ -15,6 +15,11 @@ fieldset {
     margin-bottom: .25em;
   }
 
+  .checkboxes > input {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+  }
 
   ol {
     list-style: none;
@@ -44,7 +49,7 @@ fieldset {
     box-shadow:    0px;
     border: 1px solid $subdued-color;
   }
-  
+
   div.field_with_errors {
     display: inline;
     label {

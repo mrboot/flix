@@ -11,7 +11,7 @@ describe "favouriting & unfavouriting a movie" do
 
     it 'should create a fav entry for signed in user and show un-fav button' do
 
-      vist movie_path @movie
+      visit movie_path @movie
 
       expect(page).to have_text('0 Fans')
 
@@ -22,7 +22,7 @@ describe "favouriting & unfavouriting a movie" do
       expect(current_path).to eq(movie_path(@movie))
 
       expect(page).to have_text("Thanks for fav'ing!")
-      expect(page).to have_text("1 fan")
+      expect(page).to have_text("1 Fan")
       expect(page).to have_button("Unfave")
 
     end
@@ -33,9 +33,9 @@ describe "favouriting & unfavouriting a movie" do
 
     it 'should delete the fav entry for signed in user and show fav button' do
 
-      vist movie_path @movie
+      visit movie_path @movie
 
-      expect(page).to have_text('1 Fan')
+      click_button 'Fave'
 
       expect {
         click_button 'Unfave'
@@ -44,7 +44,7 @@ describe "favouriting & unfavouriting a movie" do
       expect(current_path).to eq(movie_path(@movie))
 
       expect(page).to have_text("Sorry you unfaved it!")
-      expect(page).to have_text("0 fans")
+      expect(page).to have_text("0 Fans")
       expect(page).to have_button("Fave")
 
     end

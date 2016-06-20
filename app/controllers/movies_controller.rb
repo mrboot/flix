@@ -5,6 +5,7 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.released
+    @genres = Genre.all
   end
 
   def show

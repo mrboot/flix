@@ -1,3 +1,4 @@
+<% title("#{@movie.title} (#{@movie.released_on.year})") %>
 <article id="movie" class="movie">
   <header>
     <%= image_for(@movie) %>
@@ -34,28 +35,9 @@
   </p>
 
   <p>
-    <%= pluralize(@fans.size, 'fan') %>
+    <%= pluralize(@fans.size, 'Fan') %>
   </p>
-  <% if @fans.any? %>
-  <h3>Fans</h3>
-    <ul>
-      <% @fans.each do |user| %>
-      <li>
-        <%= profile_image_for(user, size: 35) %>
-        <%= link_to user.name, user %>
-        (<%= user.username %>)
-      </li>
-      <% end %>
-    </ul>
-  <% end %>
-  <h3>Genres</h3>
-  <ul>
-    <% @genres.each do |genre| %>
-      <li>
-        <%= link_to genre.name, genre %>
-      </li>
-    <% end %>
-  </ul>
+
   <% if current_user %>
     <% if @current_favorite %>
       <%= button_to "Unfave", movie_favorite_path(@movie, @current_favorite), method: :delete, class: "button unfave" %>
@@ -68,6 +50,10 @@
   <% if current_user %>
     <h3>Seen the film? Add a review!</h3>
     <%= render 'reviews/form' %>
+  <% end %>
+
+  <% content_for :side do %>
+    <%= render 'movie_sidebar_extras' %>
   <% end %>
 
   <footer>

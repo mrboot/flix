@@ -45,9 +45,9 @@ describe "when creating a movie" do
 
     expect(current_path).to eq(movie_path(Movie.last))
     expect(page).to have_text('Star Wars: The Force Awakens')
-    expect(page).to have_text('@genre1'.name)
-    expect(page).to have_text('@genre3'.name)
-    expect(page).not_to have_text('@genre2'.name)
+    expect(page).to have_text(@genre1.name)
+    expect(page).to have_text(@genre3.name)
+    expect(page).not_to have_text(@genre2.name)
   end
 
   it "should not save the movie if it's invalid" do

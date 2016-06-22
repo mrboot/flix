@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
   has_many :favorites, dependent: :destroy
   has_many :favorite_movies, through: :favorites, source: :movie
 
+  scope :by_name, -> { order(name: :asc) }
+  scope :non_admin, -> { where(admin: false).by_name }
+
   def gravatar_id
     Digest::MD5::hexdigest(email.downcase)
   end

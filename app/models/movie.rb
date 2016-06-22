@@ -24,12 +24,20 @@ class Movie < ActiveRecord::Base
             in: RATINGS,
             mesage: "Must be a valid rating" }
 
-  has_many :reviews, dependent: :destroy
+  has_many :reviews -> { order(created_at: :desc) }, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :fans, through: :favorites, source: :user
   has_many :critics, through: :reviews, source: :user
   has_many :characterizations
   has_many :genres, through: :characterizations
+
+  scope :released, -> { where("released_on <= ?", Time.zone.now).order(released_on: :desc) }
+  scope :hits, -> { where('total_gross >= ?', 300_000_000).order(total_gross: :desc) }
+  scope :flops, -> { where('total_gross <= ? and released_on <= ?', 50_000_000, Time.zone.now).order(total_gross: :asc) }
+  scope :recently_added, ->(max=3) { order(created_at: :desc).limit(max) }
+  scope :upcoming, -> { where("released_on > ?", Time.zone.now).order(released_on: :desc) }
+  scope :rated, ->(rating) { released.where("rating = ?", rating) }
+  scope :recent, ->(max=5) { released.limit(max) }
 
   def flop?
     # released? && total_gross.to_i < 20_000_000
@@ -44,22 +52,6 @@ class Movie < ActiveRecord::Base
     released_on.blank? ? false : released_on <= Time.zone.now
   end
 
-  def self.released
-    where("released_on <= ?", Time.zone.now).order(released_on: :desc)
-  end
-
-  def self.hits
-    where('total_gross >= ?', 300_000_000).order(total_gross: :desc)
-  end
-
-  def self.flops
-    where('total_gross <= ? and released_on <= ?', 50_000_000, Time.zone.now).order(total_gross: :asc)
-  end
-
-  def self.recently_added
-    order(created_at: :desc).limit(3)
-  end
-
   def average_stars
     reviews.average(:stars)
   end
@@ -67,5 +59,21 @@ class Movie < ActiveRecord::Base
   def recent_reviews
     reviews.order('created_at desc').limit(2)
   end
+
+  # def self.released
+  #   where("released_on <= ?", Time.zone.now).order(released_on: :desc)
+  # end
+
+  # def self.hits
+  #   where('total_gross >= ?', 300_000_000).order(total_gross: :desc)
+  # end
+
+  # def self.flops
+  #   where('total_gross <= ? and released_on <= ?', 50_000_000, Time.zone.now).order(total_gross: :asc)
+  # end
+
+  # def self.recently_added
+  #   order(created_at: :desc).limit(3)
+  # end
 
 end

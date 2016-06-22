@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :require_admin, only: [:delete]
 
   def index
-    @users = User.all
+    @users = User.non_admin
   end
 
   def show

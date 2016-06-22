@@ -4,7 +4,11 @@ class MoviesController < ApplicationController
   before_action :require_admin, except: [:show, :index]
 
   def index
-    @movies = Movie.released
+    # the 'send' method dynamically creates a method named after its param.
+    # so here we are actually calling the result of the call to the movies_scope method
+    # this will return one of the whitelisted params or the default.
+    # resulting in a call to, say, Movie.hits.  This saves us from a long CASE statement.
+    @movies = Movie.send(movies_scope)
     @genres = Genre.all
   end
 
@@ -65,6 +69,15 @@ class MoviesController < ApplicationController
   end
 
   private
+
+  # constrain the list of scope params that can be passed through.
+  def movies_scope
+    if params[:scope].in? %w(hits flops upcoming recent)
+      params[:scope]
+    else
+      :released
+    end
+  end
 
   def secure_params
     params.require(:movie).permit(:title,

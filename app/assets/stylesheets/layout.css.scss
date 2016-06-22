@@ -132,6 +132,11 @@ aside#sidebar {
           display: block;
           background: image-url("arrow.png") no-repeat 10px 8px;
           padding-left: 35px;
+
+          &.active {
+            background-color: $primary-link-color;
+            color: white;
+          }
         }
 
         &.create-movie a {

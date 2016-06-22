@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :genres
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -57,8 +56,12 @@ Rails.application.routes.draw do
   #   end
 
   root 'movies#index'
+
+  get 'movies/filter/:scope' => 'movies#index', as: :filtered_movies
+
   # use signular 'resource' & action 'session' to indicate no index action etc.
   resource :session
+  resources :genres
   resources :movies do
     resources :reviews
     resources :favorites, only: [:create, :destroy]

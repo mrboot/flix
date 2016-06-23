@@ -10,7 +10,9 @@ class Movie < ActiveRecord::Base
     thumb: "50x50>"
   }
 
-  validates :title, :released_on, :duration, presence: true
+  validates :title, presence: true, uniqueness: true
+  validates :slug, uniqueness: true
+  validates :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0.00 }
   # validates :image_file_name, allow_blank: true, format: {
@@ -30,6 +32,10 @@ class Movie < ActiveRecord::Base
   has_many :critics, through: :reviews, source: :user
   has_many :characterizations
   has_many :genres, through: :characterizations
+
+  # model callback run before validation checking.  this runs the method to assign
+  # a slug using the generate_slug method.
+  before_validation :generate_slug
 
   scope :released, -> { where("released_on <= ?", Time.zone.now).order(released_on: :desc) }
   scope :hits, -> { where('total_gross >= ?', 300_000_000).order(total_gross: :desc) }
@@ -60,20 +66,16 @@ class Movie < ActiveRecord::Base
     reviews.order('created_at desc').limit(2)
   end
 
-  # def self.released
-  #   where("released_on <= ?", Time.zone.now).order(released_on: :desc)
-  # end
+  def to_param
+    # overriding the built in Rails to_param method (which looks for and returns)
+    # an integer.  Here we return the value of our slug filed in the DB
+    slug
+  end
 
-  # def self.hits
-  #   where('total_gross >= ?', 300_000_000).order(total_gross: :desc)
-  # end
-
-  # def self.flops
-  #   where('total_gross <= ? and released_on <= ?', 50_000_000, Time.zone.now).order(total_gross: :asc)
-  # end
-
-  # def self.recently_added
-  #   order(created_at: :desc).limit(3)
-  # end
+  def generate_slug
+    # assign the slug field (must use self here) the parameterized version of the
+    # title - only if there is not already one assigned.
+    self.slug ||= title.parameterize if title
+  end
 
 end

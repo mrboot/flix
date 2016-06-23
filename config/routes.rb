@@ -59,7 +59,7 @@ Rails.application.routes.draw do
 
   get 'movies/filter/:scope' => 'movies#index', as: :filtered_movies
 
-  # use signular 'resource' & action 'session' to indicate no index action etc.
+  # use singular 'resource' & action 'session' to indicate no index action etc.
   resource :session
   resources :genres
   resources :movies do

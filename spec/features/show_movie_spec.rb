@@ -2,6 +2,14 @@
 
 describe "When showing an individual movie" do
 
+  it 'should have a friendly URL' do
+    movie = Movie.create!(movie_attributes)
+
+    visit movie_url(movie)
+
+    expect(current_path).to eq("/movies/#{movie.slug}")
+  end
+
   it 'should show the full details of that movie' do
     movie = Movie.create(movie_attributes)
 

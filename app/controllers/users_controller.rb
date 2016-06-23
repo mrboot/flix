@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   # require_signin is in ApplicationController
   before_action :require_signin, except: [:new, :create]
-  before_action :require_correct_user, only: [:edit, :update]
+  before_action :require_correct_user, only: [:show, :edit, :update, :destroy]
   before_action :require_admin, only: [:delete]
 
   def index
@@ -10,7 +10,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @reviews = @user.reviews
     @favorites = @user.favorite_movies
   end
@@ -43,7 +42,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     if @user.destroy
       # make sure we sign out the user by setting session to nil at teh same time.
       session[:user_id] = nil
@@ -60,7 +58,7 @@ private
   end
 
   def require_correct_user
-    @user = User.find(params[:id])
+    @user = User.find_by_username!(params[:id])
     unless current_user?(@user)
       redirect_to root_path
     end

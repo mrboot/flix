@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   has_many :favorites, dependent: :destroy
   has_many :favorite_movies, through: :favorites, source: :movie
 
+  before_save :format_username, :format_email
+
   scope :by_name, -> { order(name: :asc) }
   scope :non_admin, -> { where(admin: false).by_name }
 
@@ -30,6 +32,18 @@ class User < ActiveRecord::Base
   def self.authenticate(email_or_username, password)
     user = User.find_by_email(email_or_username) || User.find_by_username(email_or_username)
     user && user.authenticate(password)
+  end
+
+  def format_username
+    self.username = username.downcase
+  end
+
+  def format_email
+    self.email = email.downcase
+  end
+
+  def to_param
+    username
   end
 
 end

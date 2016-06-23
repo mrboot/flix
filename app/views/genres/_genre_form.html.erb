@@ -1,9 +1,22 @@
 <%= form_for(@genre) do |f| %>
   <%= render 'shared/errors', object: @genre %>
-  <%= f.label :name %>
-  <%= f.text_field :name, autofocus: true %>
-  <p>
-    <%= f.submit %>
-    <%= link_to "Back", @genre, class: 'button' %>
-  </p>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label :name %>
+        <%= f.text_field :name, size: 30, autofocus: true %>
+      </li>
+      <% unless @genre.new_record? %>
+        <li>
+          <%= f.label :slug %>
+          <%= f.text_field :slug, size: 30 %>
+        </li>
+      <% end %>
+    </ol>
+    <p>
+      <%= f.submit %>
+      <%= link_to "Back", @genre, class: 'button' %>
+    </p>
+  </fieldset>
+
 <% end %>

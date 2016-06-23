@@ -2,6 +2,7 @@ class MoviesController < ApplicationController
 
   before_action :require_signin, except: [:show, :index]
   before_action :require_admin, except: [:show, :index]
+  before_action :find_by_slug, only: [:show, :update, :edit, :destroy]
 
   def index
     # the 'send' method dynamically creates a method named after its param.
@@ -13,7 +14,6 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.find(params[:id])
     # need to have an @review vairable to show the review form partial
     # but if use the standard @review = @movie.reviews.new the instantiated
     # review will be counted so when we check the size of the review array to
@@ -44,12 +44,9 @@ class MoviesController < ApplicationController
   end
 
   def edit
-    @movie = Movie.find(params[:id])
   end
 
   def update
-    @movie = Movie.find(params[:id])
-
     if @movie.update(secure_params)
       redirect_to @movie, notice: "Movie successfully updated!"
     else
@@ -59,8 +56,6 @@ class MoviesController < ApplicationController
   end
 
   def destroy
-    @movie = Movie.find(params[:id])
-
     if @movie.delete
       redirect_to root_path, alert: "Movie '#{@movie.title}' deleted!"
     else
@@ -79,6 +74,10 @@ class MoviesController < ApplicationController
     end
   end
 
+  def find_by_slug
+    @movie = Movie.find_by!(slug: params[:id])
+  end
+
   def secure_params
     params.require(:movie).permit(:title,
                                   :description,
@@ -92,6 +91,7 @@ class MoviesController < ApplicationController
                                   # replace above file field with the below paperclip
                                   # pseudo field
                                   :image,
+                                  :slug,
                                   genre_ids: [])
   end
 
